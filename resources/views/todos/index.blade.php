@@ -12,7 +12,8 @@
             <form action="/todo/{{ $todo->id }}" method="POST">
                 @csrf
                 @method('PATCH')
-                <input type="checkbox" name="is_complete" {{ $todo->is_complete ? 'checked' : '' }}>
+                <input type="hidden" name="is_complete" value="0">
+                <input type="checkbox" name="is_complete" value="1" {{ $todo->is_complete ? 'checked' : '' }}>
                 <button type="submit">Update</button>
             </form>
             <form action="/todo/{{ $todo->id }}" method="POST">

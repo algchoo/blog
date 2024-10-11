@@ -31,7 +31,9 @@ class TodoController extends Controller
             'is_complete' => 'required|boolean',
         ]);
     
-        $todo->update($request->only('is_complete'));
+        $todo->update([
+            'is_complete' => $request->input('is_complete', false),
+        ]);
     
         return redirect()->back();
     }
