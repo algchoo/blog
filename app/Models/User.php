@@ -12,6 +12,11 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
