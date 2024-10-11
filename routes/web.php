@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TodoController::class, 'index'])->middleware('auth');
+Route::post('/todo', [TodoController::class, 'store'])->middleware('auth');
+Route::patch('/todo/{todo}', [TodoController::class, 'update'])->middleware('auth');
+Route::delete('/todo/{todo}', [TodoController::class, 'destroy'])->middleware('auth');
