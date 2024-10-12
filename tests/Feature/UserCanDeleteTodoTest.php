@@ -11,7 +11,7 @@ it('allows a user to delete a todo', function () {
     $todo = Todo::factory()->create(['user_id' => $user->id]);
 
     // Act: Send a DELETE request to delete the todo
-    $response = $this->actingAs($user)->delete("/todo/{$todo->id}");
+    $response = $this->actingAs($user)->delete("/todo/{$todo->id}", ['_token' => csrf_token()]);
 
     // Assert: Check that the todo was deleted
     $response->assertStatus(302);  // Check for a redirect response

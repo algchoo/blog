@@ -11,7 +11,7 @@ it('allows a user to view their todos', function () {
     $todo = Todo::factory()->create(['user_id' => $user->id]);
 
     // Act: Send a GET request to view the todos
-    $response = $this->actingAs($user)->get('/');
+    $response = $this->actingAs($user)->get('/', ['_token' => csrf_token()]);
 
     // Assert: Check that the todo appears in the response
     $response->assertSee($todo->title);
