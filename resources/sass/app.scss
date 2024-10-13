@@ -6,3 +6,142 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// General styling
+body {
+    font-family: $font-family;
+    background-color: $background-color;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px; // Adjust width for better centering
+    margin: 20px auto; // Center the container on the screen
+    padding: 20px;
+    background-color: $container-background;
+    box-shadow: $shadow;
+    border-radius: $border-radius;
+    text-align: center; // Center text and content for a clean layout
+}
+
+// Remove the outline from navbar links
+nav a {
+    outline: none;
+    box-shadow: none;
+}
+
+form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+
+    input[type="text"] {
+        flex-grow: 1;
+        padding: 12px;
+        border: 2px solid $input-border;
+        border-radius: $border-radius;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
+}
+
+// Styling for the todo list
+ul.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: $container-background;
+        border-radius: $border-radius;
+        box-shadow: $shadow;
+        text-align: left;
+
+        &.complete {
+            background-color: lighten($primary-color, 40%);
+            text-decoration: line-through;
+        }
+
+        &.incomplete {
+            background-color: lighten($background-color, 5%);
+        }
+
+        .todo-content {
+            flex-grow: 1;
+            padding-right: 20px;
+
+            .todo-title {
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+
+            .todo-description {
+                color: #777;
+                font-size: 1rem;
+            }
+        }
+
+        .todo-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            input[type="checkbox"] {
+                margin-right: 10px;
+            }
+
+            button {
+                padding: 8px 12px;
+                background-color: $primary-color;
+                color: white;
+                border: none;
+                border-radius: $border-radius;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: darken($primary-color, 10%);
+                }
+
+                &.delete {
+                    background-color: $danger-color;
+
+                    &:hover {
+                        background-color: darken($danger-color, 10%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Adjustments to make buttons more uniform
+button {
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: $border-radius;
+    transition: background-color 0.3s;
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+}
