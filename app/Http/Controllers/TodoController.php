@@ -9,7 +9,7 @@ class TodoController extends Controller
 {
     public function index()
     {
-        $todos = Todo::all();
+        $todos = Todo::where('user_id', auth()->id())->get();
         return view('todos.index', compact('todos'));
     }
     
