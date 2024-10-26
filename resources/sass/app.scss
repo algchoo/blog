@@ -17,13 +17,13 @@ body {
 }
 
 .container {
-    max-width: 600px; // Adjust width for better centering
-    margin: 20px auto; // Center the container on the screen
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
     background-color: $container-background;
     box-shadow: $shadow;
     border-radius: $border-radius;
-    text-align: center; // Center text and content for a clean layout
+    text-align: left;
 }
 
 // Remove the outline from navbar links
@@ -33,18 +33,6 @@ nav a {
 }
 
 form {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-
-    input[type="text"] {
-        flex-grow: 1;
-        padding: 12px;
-        border: 2px solid $input-border;
-        border-radius: $border-radius;
-        font-size: 1rem;
-    }
-
     button {
         padding: 10px 20px;
         background-color: $primary-color;
