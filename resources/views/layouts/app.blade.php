@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Todos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/resume') }}">Resume</a>
+                        </li>
                     @endauth
                     </ul>
 

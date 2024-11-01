@@ -17,8 +17,10 @@ class User extends Authenticatable
         return $this->hasMany(Todo::class);
     }
 
-    public function defaultTodo()
+    protected static function boot()
     {
+        parent::boot();
+    
         static::created(function ($user) {
             $user->todos()->create([
                 'title' => 'Resume review!',
