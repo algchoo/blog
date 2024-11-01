@@ -17,6 +17,16 @@ class User extends Authenticatable
         return $this->hasMany(Todo::class);
     }
 
+    public function defaultTodo()
+    {
+        static::created(function ($user) {
+            $user->todos()->create([
+                'title' => 'Resume review!',
+                'description' => 'Please navigate to the resume page and submit a rating.',
+            ]);
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *
