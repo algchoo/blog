@@ -1,5 +1,5 @@
-# Use an official PHP runtime as a parent image
-FROM php:8.2-fpm
+# Stage 1: Build Laravel application with PHP
+FROM php:8.2-fpm AS laravel
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -23,16 +23,32 @@ WORKDIR /var/www
 # Copy the Laravel application
 COPY . .
 
+# Copy the startup script
+COPY scripts/startup.sh /scripts/startup.sh
+RUN chmod 755 /scripts/startup.sh
+
 # Install PHP dependencies
 RUN composer install --prefer-dist --no-dev --optimize-autoloader
-
-# Copy the application
-COPY . .
 
 # Set file permissions
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
 
-# Expose port 9000 and start PHP-FPM server
-EXPOSE 9000
-CMD ["php-fpm"]
+# Stage 2: Nginx for serving Laravel over HTTPS
+FROM nginx:alpine
+
+# Install OpenSSL (for HTTPS support)
+RUN apk add --no-cache openssl
+
+# Copy Laravel application from the previous stage
+COPY --from=laravel /var/www /var/www
+
+# Set appropriate permissions for Laravel
+RUN chown -R nginx:nginx /var/www
+
+# Expose ports for HTTP and HTTPS
+EXPOSE 80
+EXPOSE 443
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
