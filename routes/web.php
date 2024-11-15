@@ -13,4 +13,6 @@ Route::delete('/todo/{todo}', [TodoController::class, 'destroy'])->middleware('a
 
 Route::get('/resume', [ResumeController::class, 'show'])->name('resume.show');
 
+Route::post('/resume/rate', [ResumeController::class, 'rateResume'])->name('resume.rateResume');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
