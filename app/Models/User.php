@@ -12,11 +12,6 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    public function todos()
-    {
-        return $this->hasMany(Todo::class);
-    }
-
     protected static function boot()
     {
         parent::boot();
@@ -27,6 +22,16 @@ class User extends Authenticatable
                 'description' => 'Please navigate to the resume page and submit a rating.',
             ]);
         });
+    }
+
+    public function todos()
+    {
+        return $this->hasMany(Todo::class);
+    }
+
+    public function rating()
+    {
+        return $this->hasOne(Rating::class);
     }
 
     /**
