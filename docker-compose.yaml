@@ -2,24 +2,21 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: algchoo/dumpster:laravel-0.0.4
     container_name: laravel_app
     volumes:
       - .:/var/www
     ports:
       - "8000:80"
-    command: sh -c "./scripts/startup.sh"
     depends_on:
       - db
     environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=laravel
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
-      - APP_ENV=local
+      - DB_HOST=$DB_HOST
+      - DB_PORT=$DB_PORT
+      - DB_DATABASE=$DB_DATABASE
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - APP_ENV=$APP_ENV
       - APP_KEY=$APP_KEY
 
   db:
