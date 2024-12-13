@@ -1,0 +1,14 @@
+controller:
+  config:
+    # Set the rewrite target for Laravel's `/public` folder
+    enable-rewrite: "true"
+    proxy-body-size: "50m"  # Adjust as needed
+    use-forwarded-headers: "true"
+
+  # Add custom annotations for your Ingress resource
+  service:
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/index: /index.php
+      nginx.ingress.kubernetes.io/use-regex: "true"
+

@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rate-my-resume-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-redirect-from: http://pleasehireme.duckdns.org
+    nginx.ingress.kubernetes.io/proxy-redirect-to: https://pleasehireme.duckdns.org
+    nginx.ingress.kubernetes.io/use-regex: "false"
+    kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: pleasehireme.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - pleasehireme.duckdns.org
+    secretName: your-app-tls
