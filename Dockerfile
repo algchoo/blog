@@ -34,21 +34,7 @@ RUN composer install --prefer-dist --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
 
-# Stage 2: Nginx for serving Laravel over HTTPS
-FROM nginx:alpine
+EXPOSE 9000
 
-# Install OpenSSL (for HTTPS support)
-RUN apk add --no-cache openssl
-
-# Copy Laravel application from the previous stage
-COPY --from=laravel /var/www /var/www
-
-# Set appropriate permissions for Laravel
-RUN chown -R nginx:nginx /var/www
-
-# Expose ports for HTTP and HTTPS
-EXPOSE 80
-EXPOSE 443
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start PHP-FPM
+CMD ["php-fpm"]
