@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rate-my-resume
+  name: blog
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rate-my-resume
+      app: blog
   template:
     metadata:
       labels:
-        app: rate-my-resume
+        app: blog
     spec:
       imagePullSecrets:
       - name: dockerhub-secret
       containers:
-      - name: rate-my-resume
-        image: algchoo/dumpster:laravel-0.0.6
+      - name: blog
+        image: algchoo/dumpster:blog-0.0.1
         securityContext:
           runAsUser: 0
         ports:

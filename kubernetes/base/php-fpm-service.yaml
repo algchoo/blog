@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   selector:
-    app: rate-my-resume
+    app: blog
   ports:
     - protocol: TCP
       port: 9000
