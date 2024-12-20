@@ -8,9 +8,9 @@
 @section('main')
 <nav class="">
     <ul>
-        <li><a href="">Writings</a></li>
-        <li><a href="">Author</a></li>
-        <li><a href="">Resume</a></li>
+        <li><a href="#">Writings</a></li>
+        <li><a href="#">Author</a></li>
+        <li><a href="#">Resume</a></li>
     </ul>
 </nav>
 @endsection
