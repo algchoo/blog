@@ -58,11 +58,11 @@ spec:
             configMapKeyRef:
               name: app-config
               key: APP_URL
-        - name: POSTGRES_USERNAME
+        - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
               name: app-secrets
-              key: POSTGRES_USERNAME
+              key: POSTGRES_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
