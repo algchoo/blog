@@ -1,6 +1,5 @@
 FROM php:8.2-fpm
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -12,7 +11,15 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev \
     netcat-openbsd \
-    && docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd zip
+    && docker-php-ext-install \
+        pdo_pgsql \
+        mbstring \
+        exif \
+        pcntl \
+        bcmath \
+        gd \
+        zip \
+    && apt-get clean
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -22,11 +29,9 @@ COPY . .
 
 COPY scripts/startup.sh /scripts/startup.sh
 
-RUN chmod 755 /scripts/startup.sh
-
-RUN composer install --prefer-dist --no-dev --optimize-autoloader
-
-RUN chown -R www-data:www-data /var/www \
+RUN chmod 755 /scripts/startup.sh \
+    && composer install --prefer-dist --no-dev --optimize-autoloader \
+    && chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
 
 EXPOSE 9000

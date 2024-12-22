@@ -39,12 +39,3 @@ spec:
       volumes:
       - name: pgdata-volume
         emptyDir: {}
-      - name: storage-volume
-        persistentVolumeClaim:
-          claimName: nfs-pvc
-      - name: cache-volume
-        emptyDir: {}
-      - name: sessions-volume
-        emptyDir: {}
-      - name: views-volume
-        emptyDir: {}
