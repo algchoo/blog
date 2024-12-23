@@ -12,12 +12,12 @@ class BlogPostsController extends Controller
     {
         $blogs = BlogPosts::all();
         return view('blog.index', compact('blogs'));
-    }  
+    }
 
     public function blogPost(int $id)
     {
         $blog = BlogPosts::findOrFail($id);
         $html = Markdown::convertToHTML($blog->markdown);
-        return view('blog.post', ['blog' => $blog, 'html' => $html])
+        return view('blog.post', ['blog' => $blog, 'html' => $html]);
     }
 }
