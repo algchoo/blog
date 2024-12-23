@@ -6,7 +6,7 @@
 @endsection
 
 @section('main')
-<nav class="home-nav">
+<nav class="home-navc">
     <ul>
         <li><a href="{{ route('blog.index') }}">Writings</a></li>
         <li><a href="{{ route('author') }}">Author</a></li>
