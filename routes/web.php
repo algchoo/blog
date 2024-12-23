@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BlogPostsController;
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
