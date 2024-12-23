@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('header')
+<nav class="author-nav">
+    <a href="{{ route('home') }}">Home</a>
+</nav>
+@endsection
+
 @section('main')
 <div class="container">
     <ul class="article-list">

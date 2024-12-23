@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('header')
+<nav class="author-nav">
+    <ul>
+        <li><a href="{{ route('home') }}">Home</a></li>
+        <li><a href="{{ route('blog.index') }}">Writings</a></li>
+    </ul>
+</nav>
+@endsection
+
 @section('main')
 <p>
 I’m Austin Georgiades, a software engineer with a passion for infrastructure and automation. I enjoy video games, cats, camping when it’s shit out, as well as, a variety of other activities.

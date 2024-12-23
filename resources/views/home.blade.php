@@ -6,10 +6,10 @@
 @endsection
 
 @section('main')
-<nav class="">
+<nav class="home-nav">
     <ul>
-        <li><a href="#">Writings</a></li>
-        <li><a href="#">Author</a></li>
+        <li><a href="{{ route('blog.index') }}">Writings</a></li>
+        <li><a href="{{ route('author') }}">Author</a></li>
         <li><a href="#">Resume</a></li>
     </ul>
 </nav>
