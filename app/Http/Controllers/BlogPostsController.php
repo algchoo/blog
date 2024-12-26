@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogPosts;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Markdown;
+use Parsedown;
 
 class BlogPostsController extends Controller
 {
@@ -16,8 +16,9 @@ class BlogPostsController extends Controller
 
     public function blogPost(int $id)
     {
+        $pd = new Parsedown();
         $blog = BlogPosts::findOrFail($id);
-        $html = Markdown::convertToHTML($blog->markdown);
+        $html = $pd->text($blog->markdown);
         return view('blog.post', ['blog' => $blog, 'html' => $html]);
     }
 }
