@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\BlogPost;
+use App\Models\BlogPosts;
 
-class BlogPostSeeder extends Seeder
+class BlogPostsSeeder extends Seeder
 {
     public function run(): void
     {
-        BlogPost::factory()->count(10)->create();
+        BlogPosts::factory()->count(10)->create();
     }
 }
