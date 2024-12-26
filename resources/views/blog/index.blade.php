@@ -11,7 +11,7 @@
     <ul class="article-list">
         @foreach ($blogs as $blog)
             <li class="article">
-                <a class="article-title" href="{{ route('blog.show', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
+                <a class="article-title" href="{{ route('blog.post', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
                 <span class="article-description">{{ $blog->description }}</span>
             </li>
         @endforeach
