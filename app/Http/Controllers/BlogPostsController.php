@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BlogPostsModel;
+use App\Models\BlogPosts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Markdown;
 
@@ -10,7 +10,7 @@ class BlogPostsController extends Controller
 {
     public function index()
     {
-        $blogs = BlogPostsModel::all();
+        $blogs = BlogPosts::all();
         return view('blog.index', compact('blogs'));
     }
 
