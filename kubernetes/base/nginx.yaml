@@ -17,7 +17,7 @@ spec:
       - name: dockerhub-secret
       containers:
       - name: nginx
-        image: algchoo/dumpster:blog-nginx-dev-0.0.1
+        image: algchoo/dumpster:blog-nginx-dev-0.0.2
         ports:
         - containerPort: 443
         - containerPort: 80
