@@ -27,7 +27,7 @@ WORKDIR /var/www
 
 COPY . .
 
-COPY scripts/startup.sh /scripts/startup.sh
+COPY scripts/ /scripts/
 
 RUN chmod 755 /scripts/startup.sh \
     && composer install --prefer-dist --no-dev --optimize-autoloader \
