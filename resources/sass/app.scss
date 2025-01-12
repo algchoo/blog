@@ -16,12 +16,9 @@ $link-hover-color: #000;
 
 body {
     font-family: $font-family;
-    margin: 0;
-    padding: 0;
+    align-content: space-evenly;
     background-color: $background-color;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    height: 100vh
 }
 
 header {
