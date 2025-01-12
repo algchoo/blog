@@ -4,4 +4,4 @@ FROM nginx:alpine
 
 WORKDIR /var/www
 
-COPY --from=builder /var/www/public/build /var/www/public/build
+COPY --from=builder /var/www/public/ /var/www/public/
