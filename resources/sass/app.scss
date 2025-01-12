@@ -31,13 +31,13 @@ body {
     margin-bottom: 2rem;
 
     h1 {
-        font-size: 2rem;
+        font-size: 4rem;
         font-weight: bold;
         color: $text-color;
     }
 
     p {
-        font-size: 1.2rem;
+        font-size: 2rem;
         color: $subtext-color;
     }
 }
@@ -73,7 +73,7 @@ body {
 
             a {
                 text-decoration: none;
-                font-size: 1.5rem;
+                font-size: 1.25rem;
                 color: $link-color;
                 font-weight: 500;
                 transition: color 0.2s ease-in-out;
