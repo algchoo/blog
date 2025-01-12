@@ -3,7 +3,9 @@
 @section('header')
 <div class="blog-header">
     <nav>
-        <a href="{{ route('home') }}">Home</a>
+        <ul>
+            <li><a href="{{ route('home') }}">Home</a></li>
+        </ul>
     </nav>
 </div>
 @endsection
