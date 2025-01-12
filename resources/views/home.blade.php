@@ -4,6 +4,7 @@
 <div class="home-header">
     <nav>
         <ul>
+            <li><a href="{{ route('home') }}">Home</a></li>
             <li><a href="{{ route('blog.index') }}">Writings</a></li>
             <li><a href="{{ route('author') }}">Author</a></li>
             <li><a href="{{ route('resume') }}" target="_blank">Resume</a></li>
