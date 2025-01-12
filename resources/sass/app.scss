@@ -42,7 +42,15 @@ body {
     }
 }
 
-.home-header {
+.author-main, .blog-main {
+    margin: 1rem;
+
+    div ul {
+        list-style-type: none;
+    }
+}
+
+.home-header, .author-header, .blog-header {
     text-align: center;
 
     ul {
@@ -65,16 +73,6 @@ body {
                 }
             }
         }
-    }
-}
-
-.blog-header, .author-main { margin: 1rem; }
-
-.author-header, .blog-main {
-    margin: 1rem;
-
-    nav ul, div ul {
-        list-style-type: none;
     }
 }
 
