@@ -8,7 +8,7 @@
 @endsection
 
 @section('main')
-<div class="home-nav">
+<div class="home-main">
     <nav>
         <ul>
             <li><a href="{{ route('blog.index') }}">Writings</a></li>

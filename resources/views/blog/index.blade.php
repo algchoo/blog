@@ -1,18 +1,20 @@
 @extends('layouts.app')
 
 @section('header')
-<nav class="author-nav">
-    <a href="{{ route('home') }}">Home</a>
-</nav>
+<div class="blog-header">
+    <nav>
+        <a href="{{ route('home') }}">Home</a>
+    </nav>
+</div>
 @endsection
 
 @section('main')
-<div class="container">
-    <ul class="article-list">
+<div class="blog-main">
+    <ul>
         @foreach ($blogs as $blog)
-            <li class="article">
-                <a class="article-title" href="{{ route('blog.post', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
-                <span class="article-description">{{ $blog->description }}</span>
+            <li class="blog">
+                <a class="blog-title" href="{{ route('blog.post', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
+                <span class="blog-description">{{ $blog->description }}</span>
             </li>
         @endforeach
     </ul>
