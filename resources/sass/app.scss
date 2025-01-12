@@ -12,6 +12,11 @@ $subtext-color: #777;
 $link-color: #555;
 $link-hover-color: #000;
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: variables.$font-family-sans-serif;
     align-content: space-evenly;
@@ -19,7 +24,7 @@ body {
     height: 100vh
 }
 
-header {
+.home-header {
     text-align: center;
     margin-bottom: 2rem;
 
@@ -27,25 +32,17 @@ header {
         font-size: 2rem;
         font-weight: bold;
         color: $text-color;
-        margin: 0;
     }
 
     p {
         font-size: 1.2rem;
         color: $subtext-color;
-        margin: 0;
     }
-}
-
-main {
-    text-align: center;
 }
 
 .home-nav {
     ul {
         list-style-type: none;
-        padding: 0;
-        margin: 0;
 
         li {
             margin: 1rem 0;
