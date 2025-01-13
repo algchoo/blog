@@ -20,6 +20,8 @@
     <h3>Austin Georgiades</h3>
     <h4>{{ $blog->created_at->format('Y-m-d') }}</h4>
 
-    {!! $html !!}
+    <div class="blog-post-main-md">
+        {!! $html !!}
+    </div>
 </div>
 @endsection
