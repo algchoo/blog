@@ -60,7 +60,13 @@ body {
     }
 }
 
-.home-header, .author-header, .blog-header {
+.blog-post-main {
+    h1, h2, h3, h4 {
+        margin: 0 1rem;
+    }
+}
+
+.home-header, .author-header, .blog-header, .blog-post-header {
     text-align: center;
 
     ul {
