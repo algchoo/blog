@@ -24,6 +24,8 @@ body {
     height: 100vh;
     max-width: 650px;
     margin: auto;
+
+    img { width: 100% }
 }
 
 .home-main {
@@ -62,7 +64,7 @@ body {
 
 .blog-post-main {
     h1, h2, h3, h4 {
-        margin: 1rem 0.5rem;
+        margin: 1rem auto;
     }
 }
 
