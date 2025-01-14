@@ -1,0 +1,9 @@
+I started this project because I wanted to write more and I wanted something to write about. I thought, why not build your own blog, but build it to run in Kubernetes so that you can deploy it anywhere?
+
+Granted, it didn't necessarily start that way. I was laid off in September 2024, so I needed something to do and I aim to be the kind of person who takes the time to upskill when there's an opportunity, even if the circumstances are less than ideal.
+
+It really started off as me looking into Laravel because I noticed an opportunity that was looking for someone with PHP experience. I decided to build a basic application and learn how to write some PEST tests. Thinking that potential employers may see this, I decided to include my resume and a basic 1-5 star rating system. It really was just a thrown together, not very well thought out thing. This basic application had users and authentication, which I realized I did not want, or need this. I opted to commit to building a blog that would focus on things I'm learning with technology.
+
+I suppose that beyond just writing more, the goal is continuous learning and to share that information. This post itself is an expression of commitment to that goal, the first of many. 
+
+
