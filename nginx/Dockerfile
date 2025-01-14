@@ -1,4 +1,4 @@
-FROM algchoo/dumpster:blog-dev-0.0.9 AS builder
+FROM algchoo/dumpster:blog-dev-0.1.0 AS builder
 
 FROM nginx:alpine
 
