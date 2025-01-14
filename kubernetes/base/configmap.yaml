@@ -27,6 +27,10 @@ data:
             expires max;
         }
 
+        location /blog-posts/images/ {
+            alias /var/www/public/markdown/images/;
+        }
+
         # Proxy all other requests to PHP-FPM for Laravel
         location / {
             try_files $uri $uri/ /index.php?$query_string;
