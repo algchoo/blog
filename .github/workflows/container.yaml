@@ -50,15 +50,15 @@ jobs:
     - name: github-login
       uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKERHUB_USER }}
-        password: ${{ secrets.DOCKERHUB_PASS}}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     
     - name: dockerhub-login
       uses: docker/login-action@v3
       with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_PASS}}
 
     - name: build
       run: docker buildx build -t gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
