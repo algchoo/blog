@@ -63,6 +63,9 @@ jobs:
     - name: build
       run: docker buildx build -t gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
 
+    - name: image-test
+      run: docker images
+
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
