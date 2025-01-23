@@ -61,7 +61,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASS}}
 
     - name: build
-      run: docker buildx build -t gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
+      run: docker buildx build --load -t gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
 
     - name: image-test
       run: docker images
