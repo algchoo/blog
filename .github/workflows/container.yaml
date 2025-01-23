@@ -56,8 +56,10 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: build-scan-push
+    - name: build
       run: docker buildx build -t gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
+
+    - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
         image-ref: 'gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}'
@@ -66,7 +68,9 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
-      # run: docker push gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
+
+    # - name: push
+    #   run: docker push gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
 
   # build-nginx-container:
   #   runs-on: ubuntu-latest
