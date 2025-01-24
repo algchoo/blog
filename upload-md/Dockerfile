@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 # Build the Go binary
-RUN go mod init && \
+RUN go mod init algchoo/nginx && \
     go build -o main .
 
 # Stage 2: Run
