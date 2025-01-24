@@ -33,11 +33,15 @@ jobs:
 
   build-php-container:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
       packages: write
-
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
     needs: [build-static-assets]
     steps:
     - name: checkout 
@@ -65,17 +69,10 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    
-    - name: dockerhub-login
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USER }}
-        password: ${{ secrets.DOCKERHUB_PASS}}
 
     - name: build
       run: |
-        docker buildx build --platform linux/amd64 --load -t ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} . && \
-        docker buildx build --platform linux/arm64 --load -t ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --platform ${{ matrix.platform }} --load -t ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
