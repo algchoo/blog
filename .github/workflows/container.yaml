@@ -80,9 +80,6 @@ jobs:
 
     - name: push
       run: docker push ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
-      permissions:
-        contents: read
-        packages: write
 
   build-nginx-container:
     runs-on: ubuntu-latest
