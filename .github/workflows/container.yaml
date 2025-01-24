@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - dev
+    paths:
+      - "nginx/"
+      - "upload-md/"
+      - "resources/css/**"
+      - "resources/js/**"
+      - "resources/sass/**"
 
 jobs:
   build-static-assets:
