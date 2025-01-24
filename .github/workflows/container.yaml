@@ -26,6 +26,11 @@ jobs:
 
   build-php-container:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     needs: [build-static-assets]
     steps:
     - name: checkout 
@@ -81,6 +86,11 @@ jobs:
 
   build-nginx-container:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     needs: [build-static-assets]
     steps:
     - name: checkout 
@@ -129,6 +139,3 @@ jobs:
 
     - name: push
       run: docker push ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
-      permissions:
-        contents: read
-        packages: write
