@@ -5,7 +5,8 @@ WORKDIR /app
 COPY . .
 
 # Build the Go binary
-RUN go build -o main .
+RUN go mod init && \
+    go build -o main .
 
 # Stage 2: Run
 FROM alpine:latest
