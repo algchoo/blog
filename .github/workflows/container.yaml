@@ -112,12 +112,12 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASS}}
 
     - name: build
-      run: docker buildx build --load -t gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
+      run: docker buildx build --load -t gchr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
-        image-ref: 'gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}'
+        image-ref: 'gchr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}'
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
@@ -125,4 +125,4 @@ jobs:
         severity: 'CRITICAL,HIGH'
 
     - name: push
-      run: docker push gchr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
+      run: docker push gchr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
