@@ -73,7 +73,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASS}}
 
     - name: build
-      run: docker buildx build --platform linux/amd64,linux/arm64 --load -t ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
+      run: |
+        docker buildx build --platform linux/amd64 --load -t ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} . && \
+        docker buildx build --platform linux/arm64 --load -t ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
@@ -129,7 +131,9 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASS}}
 
     - name: build
-      run: docker buildx build --platform linux/amd64,linux/arm64 --load -t ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} .
+      run: | 
+        docker buildx build --platform linux/amd64 --load -t ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} . && \
+        docker buildx build --platform linux/arm64 --load -t ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
@@ -173,7 +177,9 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: build
-      run: docker buildx build --platform linux/amd64,linux/arm64 --load -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} .
+      run: | 
+        docker buildx build --platform linux/amd64 -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} . && \
+        docker buildx build --platform linux/arm64 -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
