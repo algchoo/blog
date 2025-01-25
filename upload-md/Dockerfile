@@ -4,7 +4,7 @@ FROM golang:1.23-alpine AS builder
 WORKDIR /app
 COPY . .
 
-Build the Go binary
+# Build the Go binary
 RUN go mod init algchoo/nginx && \
     go mod tidy && \
     go build -o main .
