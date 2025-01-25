@@ -5,9 +5,7 @@ WORKDIR /app
 COPY . .
 
 # Build the Go binary
-RUN go mod init algchoo/nginx && \
-    go mod tidy && \
-    go build -o main .
+RUN go build -o main .
 
 # Stage 2: Run
 FROM alpine:latest
