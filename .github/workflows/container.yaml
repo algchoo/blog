@@ -175,8 +175,8 @@ jobs:
 
     - name: build
       run: | 
-        docker buildx build -f upload-md/Dockerfile --platform linux/amd64 -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} . && \
-        docker buildx build -f upload-md/Dockerfile --platform linux/arm64 -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --load -f upload-md/Dockerfile --platform linux/amd64 -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} . && \
+        docker buildx build --load -f upload-md/Dockerfile --platform linux/arm64 -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
