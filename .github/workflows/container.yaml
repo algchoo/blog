@@ -5,8 +5,8 @@ on:
     branches:
       - dev
     paths:
-      - "nginx/Dockerfile"
-      - "upload-md/Dockerfile"
+      - "nginx/**"
+      - "upload-md/**"
       - "resources/css/**"
       - "resources/js/**"
       - "resources/sass/**"
