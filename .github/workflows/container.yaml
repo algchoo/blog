@@ -42,8 +42,8 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - linux/amd64
-          - linux/arm64
+          - amd64
+          - arm64
           
     needs: [build-static-assets]
     steps:
@@ -73,22 +73,19 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: build
+    - name: build & push
       run: |
-        docker buildx build --platform ${{ matrix.platform }} --load -t ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
-        image-ref: 'ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}'
+        image-ref: 'ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}'
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
-
-    - name: push
-      run: docker push ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
 
   build-nginx-container:
     runs-on: ubuntu-latest
@@ -101,8 +98,8 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - linux/amd64
-          - linux/arm64
+          - amd64
+          - arm64
 
     needs: [build-static-assets]
     steps:
@@ -137,23 +134,20 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USER }}
         password: ${{ secrets.DOCKERHUB_PASS}}
 
-    - name: build
+    - name: build & push
       working-directory: nginx
       run: | 
-        docker buildx build --platform ${{ matrix.platform }} --load -t ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
-        image-ref: 'ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}'
+        image-ref: 'ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}'
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
-
-    - name: push
-      run: docker push ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
 
   build-upload-container:
     runs-on: ubuntu-latest
@@ -166,8 +160,8 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - linux/amd64
-          - linux/arm64
+          - amd64
+          - arm64
 
     steps:
     - name: checkout 
@@ -190,20 +184,17 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: build
+    - name: build & push
       working-directory: upload-md
       run: | 
-        docker buildx build --load --platform ${{ matrix.platform }} -t ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/upload-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
-        image-ref: 'ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }}'
+        image-ref: 'ghcr.io/algchoo/upload-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}'
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
-
-    - name: push
-      run: docker push ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }}
