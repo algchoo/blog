@@ -77,6 +77,20 @@ jobs:
       run: |
         docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
+    - name: create manifest
+      run: |
+        docker manifest create algchoo/blog:latest \
+        algchoo/blog-amd64:latest \
+        algchoo/blog-arm64:latest
+
+    - name: annotations
+      run: |
+        docker manifest annotate algchoo/blog:latest algchoo/blog-amd64:latest --os linux --arch amd64
+        docker manifest annotate algchoo/blog:latest algchoo/blog-arm64:latest --os linux --arch arm64
+
+    - name: push manifest
+      run: docker manifest push algchoo/blog:latest
+
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
@@ -138,6 +152,20 @@ jobs:
       working-directory: nginx
       run: | 
         docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+
+    - name: create manifest
+      run: |
+        docker manifest create algchoo/blog:latest \
+        algchoo/blog-amd64:latest \
+        algchoo/blog-arm64:latest
+
+    - name: annotations
+      run: |
+        docker manifest annotate algchoo/blog:latest algchoo/blog-amd64:latest --os linux --arch amd64
+        docker manifest annotate algchoo/blog:latest algchoo/blog-arm64:latest --os linux --arch arm64
+
+    - name: push manifest
+      run: docker manifest push algchoo/blog:latest
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
