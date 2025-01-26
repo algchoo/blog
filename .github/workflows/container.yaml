@@ -141,12 +141,6 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    
-    - name: dockerhub-login
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USER }}
-        password: ${{ secrets.DOCKERHUB_PASS}}
 
     - name: build & push
       working-directory: nginx
@@ -155,17 +149,17 @@ jobs:
 
     - name: create manifest
       run: |
-        docker manifest create algchoo/blog:latest \
-        algchoo/blog-amd64:latest \
-        algchoo/blog-arm64:latest
+        docker manifest create algchoo/nginx:latest \
+        algchoo/nginx-amd64:latest \
+        algchoo/nginx-arm64:latest
 
     - name: annotations
       run: |
-        docker manifest annotate algchoo/blog:latest algchoo/blog-amd64:latest --os linux --arch amd64
-        docker manifest annotate algchoo/blog:latest algchoo/blog-arm64:latest --os linux --arch arm64
+        docker manifest annotate algchoo/nginx:latest algchoo/nginx-amd64:latest --os linux --arch amd64
+        docker manifest annotate algchoo/nginx:latest algchoo/nginx-arm64:latest --os linux --arch arm64
 
     - name: push manifest
-      run: docker manifest push algchoo/blog:latest
+      run: docker manifest push algchoo/nginx:latest
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
@@ -216,6 +210,20 @@ jobs:
       working-directory: upload-md
       run: | 
         docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/upload-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+
+    - name: create manifest
+      run: |
+        docker manifest create algchoo/upload:latest \
+        algchoo/upload-amd64:latest \
+        algchoo/upload-arm64:latest
+
+    - name: annotations
+      run: |
+        docker manifest annotate algchoo/upload:latest algchoo/upload-amd64:latest --os linux --arch amd64
+        docker manifest annotate algchoo/upload:latest algchoo/upload-arm64:latest --os linux --arch arm64
+
+    - name: push manifest
+      run: docker manifest push algchoo/upload:latest
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
