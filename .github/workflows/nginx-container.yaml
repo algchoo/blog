@@ -1,16 +1,11 @@
 name: Build and release NGINX container images
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - "nginx/**"
-      - "upload-md/**"
-      - "resources/css/**"
-      - "resources/js/**"
-      - "resources/sass/**"
-      - ".github/workflows/php-container.yaml"
+  workflow_run:
+    workflows: ["Build static assets"]
+    branches: [dev]
+    types: 
+      - completed
 
 jobs:
   build-nginx-container:
