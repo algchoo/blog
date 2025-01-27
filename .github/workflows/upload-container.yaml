@@ -3,7 +3,7 @@ name: Build and release upload service container images
 on:
   workflow_run:
     workflows: ["Build static assets"]
-    branches: [dev]
+    branches: [main]
     types: 
       - completed
 

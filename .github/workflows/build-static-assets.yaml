@@ -10,7 +10,7 @@ on:
       - "resources/css/**"
       - "resources/js/**"
       - "resources/sass/**"
-      - ".github/workflows/php-container.yaml"
+      - ".github/workflows/**"
 
 jobs:
   build-static-assets:
