@@ -20,18 +20,32 @@ data:
         listen 80;
         server_name app.local;
 
-        root /var/www/public;
-        index index.php index.html;
+        # Serve static assets
+        location /build/assets {
+            root /var/www/public;
+            access_log off;
+            expires max;
+        }
 
+        location /blog-posts/images/ {
+            alias /var/www/public/markdown/images/;
+        }
+
+        # Proxy all other requests to PHP-FPM for Laravel
         location / {
             try_files $uri $uri/ /index.php?$query_string;
+
+            location ~ \.php$ {
+                include fastcgi_params;
+                fastcgi_pass php-fpm-service:9000;  # Replace with PHP-FPM service hostname
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME /var/www/public$fastcgi_script_name; # Matches PHP-FPM's filesystem
+            }
         }
 
-        location ~ \.php$ {
-            include fastcgi_params;
-            fastcgi_pass php-fpm-service:9000;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        # Deny access to hidden files
+        location ~ /\. {
+            deny all;
         }
-
-        error_page 404 /index.php;
     }
+

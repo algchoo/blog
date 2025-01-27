@@ -1,8 +1,96 @@
+@use "sass:meta";
+@use "variables";
+
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
 
 // Variables
-@import 'variables';
+@include meta.load-css('variables');
 
-// Bootstrap
-@import 'bootstrap/scss/bootstrap';
+$text-color: #333;
+$subtext-color: #777;
+$link-color: #555;
+$link-hover-color: #000;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: variables.$font-family-sans-serif;
+    align-content: space-evenly;
+    background-color: variables.$background-color;
+    height: 100vh;
+    max-width: 650px;
+    margin: auto;
+
+    img { width: 100% }
+}
+
+.home-main {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    h1 {
+        font-size: 4rem;
+        font-weight: bold;
+        color: $text-color;
+    }
+
+    p {
+        font-size: 2rem;
+        color: $subtext-color;
+    }
+}
+
+.author-main, .blog-main, .blog-post-main-md { margin: 1rem; }
+
+.blog-main {
+    ul {
+        list-style-type: none;
+    }
+
+    ul li {
+        display: grid;
+        margin: 0.5rem 0;
+    }
+
+    ul a {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+}
+
+.blog-post-main {
+    h1, h2, h3, h4 {
+        margin: 1rem auto;
+    }
+}
+
+.home-header, .author-header, .blog-header, .blog-post-header {
+    text-align: center;
+
+    ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+
+        li {
+            margin: 1rem;
+
+            a {
+                text-decoration: none;
+                font-size: 1.25rem;
+                color: $link-color;
+                font-weight: 500;
+                transition: color 0.2s ease-in-out;
+
+                &:hover {
+                    color: $link-hover-color;
+                }
+            }
+        }
+    }
+}
+

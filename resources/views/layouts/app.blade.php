@@ -16,7 +16,12 @@
 
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @php
+        $manifest = json_decode(file_get_contents(public_path('build/.vite/manifest.json')), true);
+    @endphp
+
+    <link href="/build/{{ $manifest['resources/sass/app.scss']['file'] }}" rel="stylesheet">
+    <script src="/build/{{ $manifest['resources/js/app.js']['file'] }}" defer></script> 
 </head>
 <body>
     <header>

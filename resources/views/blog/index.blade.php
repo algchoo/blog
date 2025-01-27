@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-<div class="home-header">
+<div class="blog-header">
     <nav>
         <ul>
             <li><a href="{{ route('home') }}">Home</a></li>
@@ -14,8 +14,14 @@
 @endsection
 
 @section('main')
-<div class="home-main">
-    <h1>dumpster.zip</h1>
-    <p>a tech blog</p>
+<div class="blog-main">
+    <ul>
+        @foreach ($blogs as $blog)
+            <li class="blog">
+                <a class="blog-title" href="{{ route('blog.post', ['id' => $blog->id]) }}">{{ $blog->title }}</a>
+                <span class="blog-description">{{ $blog->description }}</span>
+            </li>
+        @endforeach
+    </ul>
 </div>
 @endsection

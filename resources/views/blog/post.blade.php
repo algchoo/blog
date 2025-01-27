@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-<div class="home-header">
+<div class="blog-post-header">
     <nav>
         <ul>
             <li><a href="{{ route('home') }}">Home</a></li>
@@ -14,8 +14,14 @@
 @endsection
 
 @section('main')
-<div class="home-main">
-    <h1>dumpster.zip</h1>
-    <p>a tech blog</p>
+<div class="blog-post-main">
+    <h1>{{ $blog->title }}</h1>
+    <h2>{{ $blog->description }}</h2>
+    <h3>Austin Georgiades</h3>
+    <h4>{{ $blog->created_at->format('Y-m-d') }}</h4>
+
+    <div class="blog-post-main-md">
+        {!! $html !!}
+    </div>
 </div>
 @endsection

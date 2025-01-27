@@ -13,5 +13,5 @@ class BlogPosts extends Model
         'title',
         'description',
         'markdown'
-    ]
+    ];
 }
