@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upload-md
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: upload-md
+  template:
+    metadata:
+      labels:
+        app: upload-md
+    spec:
+      containers:
+      - name: upload-md
+        image: ghcr.io/algchoo/upload:2c5a843
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: POSTGRES_DB
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_PORT
