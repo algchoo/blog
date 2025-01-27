@@ -3,7 +3,7 @@ name: Build static assets
 on:
   push:
     branches:
-      - dev
+      - main
     paths:
       - "nginx/**"
       - "upload-md/**"
