@@ -1,0 +1,32 @@
+name: Build static assets
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - "nginx/**"
+      - "upload-md/**"
+      - "resources/css/**"
+      - "resources/js/**"
+      - "resources/sass/**"
+      - ".github/workflows/php-container.yaml"
+
+jobs:
+  build-static-assets:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: setup-node
+      uses: actions/setup-node@v3
+
+    - name: npm-build
+      run: npm install && npm run build
+
+    - name: upload-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: static-assets
+        path: public/build
