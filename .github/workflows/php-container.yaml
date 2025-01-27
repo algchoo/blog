@@ -27,7 +27,6 @@ jobs:
           - amd64
           - arm64
           
-    needs: [build-static-assets]
     steps:
     - name: checkout 
       uses: actions/checkout@v3
