@@ -63,6 +63,10 @@ jobs:
       packages: write
 
     steps:
+    - name: get-environment-tag
+      id: get-tag
+      run: printf '::set-output name=tag::%s' "$(git rev-parse --short HEAD)"
+
     - name: create manifest
       run: |
         docker manifest create ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} \
