@@ -46,7 +46,51 @@ jobs:
     - name: build & push
       working-directory: upload-md
       run: | 
-        docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/upload-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --push --platform linux/${{ matrix.platform }} --provenance false -t ghcr.io/algchoo/upload-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+
+  release-scan:
+    needs: [build-upload-container]
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - amd64
+          - arm64
+
+    steps:
+    - name: checkout 
+      uses: actions/checkout@v3
+
+    - name: get-environment-tag
+      id: get-tag
+      run: printf '::set-output name=tag::%s' "$(git rev-parse --short HEAD)"
+
+    - name: github-login
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: create manifest
+      run: |
+        docker manifest create ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/upload-amd64:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/upload-arm64:${{ steps.get-tag.outputs.tag }}
+
+    - name: annotations
+      run: |
+        docker manifest annotate ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/upload-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+        docker manifest annotate ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/upload-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
+
+    - name: push manifest
+      run: docker manifest push ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }}
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
