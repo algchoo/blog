@@ -52,7 +52,15 @@ jobs:
 
     - name: build & push
       run: |
-        docker buildx build --load --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+
+  release-scan:
+    needs: [build-php-container]
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: read
+      packages: write
 
     - name: create manifest
       run: |
