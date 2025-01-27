@@ -79,17 +79,17 @@ jobs:
 
     - name: create manifest
       run: |
-        docker manifest create ghcr.io/algchoo/blog:latest \
-        ghcr.io/algchoo/blog-amd64:latest \
-        ghcr.io/algchoo/blog-arm64:latest
+        docker manifest create ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }}
 
     - name: annotations
       run: |
-        docker manifest annotate ghcr.io/algchoo/blog:latest ghcr.io/algchoo/blog-amd64:latest --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/blog:latest ghcr.io/algchoo/blog-arm64:latest --os linux --arch arm64
+        docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+        docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
 
     - name: push manifest
-      run: docker manifest push ghcr.io/algchoo/blog:latest
+      run: docker manifest push ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
@@ -149,17 +149,17 @@ jobs:
 
     - name: create manifest
       run: |
-        docker manifest create ghcr.io/algchoo/nginx:latest \
-        ghcr.io/algchoo/nginx-amd64:latest \
-        ghcr.io/algchoo/nginx-arm64:latest
+        docker manifest create ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/nginx-amd64:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/nginx-arm64:${{ steps.get-tag.outputs.tag }}
 
     - name: annotations
       run: |
-        docker manifest annotate ghcr.io/algchoo/nginx:latest ghcr.io/algchoo/nginx-amd64:latest --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/nginx:latest ghcr.io/algchoo/nginx-arm64:latest --os linux --arch arm64
+        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
 
     - name: push manifest
-      run: docker manifest push ghcr.io/algchoo/nginx:latest
+      run: docker manifest push ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
@@ -213,17 +213,17 @@ jobs:
 
     - name: create manifest
       run: |
-        docker manifest create ghcr.io/algchoo/upload:latest \
-        ghcr.io/algchoo/upload-amd64:latest \
-        ghcr.io/algchoo/upload-arm64:latest
+        docker manifest create ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/upload-amd64:${{ steps.get-tag.outputs.tag }} \
+        ghcr.io/algchoo/upload-arm64:${{ steps.get-tag.outputs.tag }}
 
     - name: annotations
       run: |
-        docker manifest annotate ghcr.io/algchoo/upload:latest ghcr.io/algchoo/upload-amd64:latest --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/upload:latest ghcr.io/algchoo/upload-arm64:latest --os linux --arch arm64
+        docker manifest annotate ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/upload-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+        docker manifest annotate ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/upload-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
 
     - name: push manifest
-      run: docker manifest push ghcr.io/algchoo/upload:latest
+      run: docker manifest push ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }}
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
