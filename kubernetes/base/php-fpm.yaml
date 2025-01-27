@@ -12,11 +12,9 @@ spec:
       labels:
         app: blog
     spec:
-      imagePullSecrets:
-      - name: dockerhub-secret
       containers:
       - name: blog
-        image: algchoo/dumpster:blog-dev-0.1.0
+        image: ghcr.io/algchoo/blog:2c5a843
         securityContext:
           runAsUser: 0
         ports:
