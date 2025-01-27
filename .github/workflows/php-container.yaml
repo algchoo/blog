@@ -62,6 +62,7 @@ jobs:
       contents: read
       packages: write
 
+    steps:
     - name: create manifest
       run: |
         docker manifest create ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} \
