@@ -77,20 +77,6 @@ jobs:
       run: |
         docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
-    - name: create manifest
-      run: |
-        docker manifest create ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }}
-
-    - name: annotations
-      run: |
-        docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
-
-    - name: push manifest
-      run: docker manifest push ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
-
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
@@ -147,20 +133,6 @@ jobs:
       run: | 
         docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
-    - name: create manifest
-      run: |
-        docker manifest create ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/nginx-amd64:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/nginx-arm64:${{ steps.get-tag.outputs.tag }}
-
-    - name: annotations
-      run: |
-        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
-
-    - name: push manifest
-      run: docker manifest push ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
-
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
       with:
@@ -210,20 +182,6 @@ jobs:
       working-directory: upload-md
       run: | 
         docker buildx build --push --platform linux/${{ matrix.platform }} -t ghcr.io/algchoo/upload-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
-
-    - name: create manifest
-      run: |
-        docker manifest create ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/upload-amd64:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/upload-arm64:${{ steps.get-tag.outputs.tag }}
-
-    - name: annotations
-      run: |
-        docker manifest annotate ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/upload-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/upload-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
-
-    - name: push manifest
-      run: docker manifest push ghcr.io/algchoo/upload:${{ steps.get-tag.outputs.tag }}
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
