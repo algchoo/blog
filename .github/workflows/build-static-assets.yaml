@@ -28,8 +28,9 @@ jobs:
     - name: check-build-artifacts
       run: ls -la public/build
 
-    # - name: upload-artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: static-assets
-    #     path: public/build
+    - name: upload-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: static-assets
+        path: public/build
+        include-hidden-files: true
