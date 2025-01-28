@@ -39,6 +39,11 @@ spec:
             configMapKeyRef:
               name: app-config
               key: DB_PORT
+        - name: DB_CONNECTION
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_CONNECTION
         - name: DB_DATABASE
           valueFrom:
             configMapKeyRef:
@@ -54,12 +59,17 @@ spec:
             configMapKeyRef:
               name: app-config
               key: APP_URL
-        - name: POSTGRES_USER
+        - name: APP_DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_DEBUG
+        - name: DB_USERNAME
           valueFrom:
             secretKeyRef:
               name: app-secrets
               key: POSTGRES_USER
-        - name: POSTGRES_PASSWORD
+        - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
               name: app-secrets
