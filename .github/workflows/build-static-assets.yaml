@@ -25,8 +25,11 @@ jobs:
     - name: npm-build
       run: npm install && npm run build
 
-    - name: upload-artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: static-assets
-        path: public/build
+    - name: check-build-artifacts
+      run: ls -la
+
+    # - name: upload-artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: static-assets
+    #     path: public/build
