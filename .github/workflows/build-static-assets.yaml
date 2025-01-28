@@ -26,7 +26,7 @@ jobs:
       run: npm install && npm run build
 
     - name: check-build-artifacts
-      run: ls -la
+      run: ls -la public/build
 
     # - name: upload-artifact
     #   uses: actions/upload-artifact@v4
