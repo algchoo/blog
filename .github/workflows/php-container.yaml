@@ -34,7 +34,7 @@ jobs:
       uses: dawidd6/action-download-artifact@v8
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        workflow: build-static-assets.yaml\
+        workflow: build-static-assets.yaml
         use_unzip: true
         path: public/build
 
