@@ -3,12 +3,13 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  DB_CONNECTION: "psql"
+  DB_CONNECTION: "pgsql"
   DB_HOST: "postgres-service"
   DB_PORT: "5432"
   DB_DATABASE: "blog_posts"
   APP_ENV: "testing"
   APP_URL: "http://app.local"
+  APP_DEBUG: "false"
 ---
 apiVersion: v1
 kind: ConfigMap
