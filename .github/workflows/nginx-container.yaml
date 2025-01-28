@@ -51,9 +51,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: build & push
-      working-directory: nginx
       run: | 
-        docker buildx build --push --platform linux/${{ matrix.platform }} --provenance false -t ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build -f nginx/Dockerfile --push --platform linux/${{ matrix.platform }} --provenance false -t ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
   release-scan:
     needs: [build-nginx-container]
