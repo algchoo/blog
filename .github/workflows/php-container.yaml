@@ -40,13 +40,13 @@ jobs:
 
     - name: check-static-assets
       run: |
-        ls -la /var/www/public/build && \
-        ls -la /var/www/public/build/static-assets
+        ls -la public/build && \
+        ls -la public/build/static-assets
 
     - name: move-static-assets
       run: |
-        mv /var/www/public/build/static-assets/.vite ../ && \
-        mv /var/www/public/build/static-assets/assets ../
+        mv public/build/static-assets/.vite ../ && \
+        mv public/build/static-assets/assets ../
 
     - name: docker-build-setup
       uses: docker/setup-buildx-action@v3
