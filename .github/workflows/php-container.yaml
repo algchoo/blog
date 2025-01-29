@@ -48,73 +48,78 @@ jobs:
         mv public/build/static-assets/.vite ../ && \
         mv public/build/static-assets/assets ../
 
-    - name: docker-build-setup
-      uses: docker/setup-buildx-action@v3
-
-    - name: docker-qemu-setup
-      uses: docker/setup-qemu-action@v3
-
-    - name: github-login
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: build & push
+    - name: check-static-assets
       run: |
-        docker buildx build --push --platform linux/${{ matrix.platform }} --provenance false -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+        ls -la public/build && \
+        pwd
 
-  release-scan:
-    needs: [build-php-container]
-    runs-on: ubuntu-22.04
+  #   - name: docker-build-setup
+  #     uses: docker/setup-buildx-action@v3
 
-    permissions:
-      contents: read
-      packages: write
+  #   - name: docker-qemu-setup
+  #     uses: docker/setup-qemu-action@v3
 
-    strategy:
-      fail-fast: false
-      matrix:
-        platform:
-          - amd64
-          - arm64
+  #   - name: github-login
+  #     uses: docker/login-action@v3
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
 
-    steps:
-    - name: checkout 
-      uses: actions/checkout@v3
+  #   - name: build & push
+  #     run: |
+  #       docker buildx build --push --platform linux/${{ matrix.platform }} --provenance false -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
-    - name: get-environment-tag
-      id: get-tag
-      run: printf '::set-output name=tag::%s' "$(git rev-parse --short HEAD)"
+  # release-scan:
+  #   needs: [build-php-container]
+  #   runs-on: ubuntu-22.04
 
-    - name: github-login
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+  #   permissions:
+  #     contents: read
+  #     packages: write
 
-    - name: create manifest
-      run: |
-        docker manifest create ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} \
-        ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }}
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       platform:
+  #         - amd64
+  #         - arm64
 
-    - name: annotations
-      run: |
-        docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
+  #   steps:
+  #   - name: checkout 
+  #     uses: actions/checkout@v3
 
-    - name: push manifest
-      run: docker manifest push ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
+  #   - name: get-environment-tag
+  #     id: get-tag
+  #     run: printf '::set-output name=tag::%s' "$(git rev-parse --short HEAD)"
 
-    - name: scan
-      uses: aquasecurity/trivy-action@0.28.0
-      with:
-        image-ref: 'ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}'
-        format: 'table'
-        exit-code: '1'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+  #   - name: github-login
+  #     uses: docker/login-action@v3
+  #     with:
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
+
+  #   - name: create manifest
+  #     run: |
+  #       docker manifest create ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} \
+  #       ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} \
+  #       ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }}
+
+  #   - name: annotations
+  #     run: |
+  #       docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+  #       docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
+
+  #   - name: push manifest
+  #     run: docker manifest push ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
+
+  #   - name: scan
+  #     uses: aquasecurity/trivy-action@0.28.0
+  #     with:
+  #       image-ref: 'ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}'
+  #       format: 'table'
+  #       exit-code: '1'
+  #       ignore-unfixed: true
+  #       vuln-type: 'os,library'
+  #       severity: 'CRITICAL,HIGH'
