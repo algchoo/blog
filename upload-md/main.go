@@ -48,7 +48,7 @@ func main() {
 		}
 
 		// Insert into the database
-		query := `INSERT INTO blog_posts (title, description, markdown) VALUES ($1, $2, $3)`
+		query := `INSERT INTO blog_posts (title, description, markdown, created_at, updated_at) VALUES ($1, $2, $3, $4, $5)`
 		_, err := dbpool.Exec(context.Background(), query, post.Title, post.Description, post.Markdown)
 		if err != nil {
 			log.Printf("Error inserting post: %v\n", err)
