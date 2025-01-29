@@ -38,6 +38,11 @@ jobs:
         use_unzip: true
         path: public/build
 
+    - name: move-static-assets
+      run: |
+        mv /var/www/public/build/static-assets/.vite ../ && \
+        mv /var/www/public/build/static-assets/assets ../
+
     - name: docker-build-setup
       uses: docker/setup-buildx-action@v3
 
