@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: startup-script
 data:
   migrations-seed.sh: |
     #!/bin/bash
@@ -9,4 +9,5 @@ data:
     php artisan session:table
     php artisan migrate
     php artisan migrate --path=database/migrations/BlogPostMigration.php
-
+    
+    /var/www/scripts/load-json.sh

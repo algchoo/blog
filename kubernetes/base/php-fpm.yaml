@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: blog
-        image: ghcr.io/algchoo/blog:37e7231
+        image: ghcr.io/algchoo/blog:9dc6588
         securityContext:
           runAsUser: 0
         ports:

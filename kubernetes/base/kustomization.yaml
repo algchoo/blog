@@ -12,4 +12,6 @@ resources:
 - php-fpm.yaml
 - postgres-service.yaml
 - postgres.yaml
+- upload-md-service.yaml
+- upload-md.yaml
 
