@@ -38,6 +38,11 @@ jobs:
         use_unzip: true
         path: public/build
 
+    - name: check-static-assets
+      run: |
+        ls -la /var/www/public/build && \
+        ls -la /var/www/public/build/static-assets
+
     - name: move-static-assets
       run: |
         mv /var/www/public/build/static-assets/.vite ../ && \
