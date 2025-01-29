@@ -10,6 +10,7 @@ on:
       - "resources/css/**"
       - "resources/js/**"
       - "resources/sass/**"
+      - "scripts/**"
       - ".github/workflows/**"
 
 jobs:
