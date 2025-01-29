@@ -10,6 +10,7 @@ data:
   APP_ENV: "testing"
   APP_URL: "http://app.local"
   APP_DEBUG: "false"
+  APP_NAME: "dumpster.zip"
 ---
 apiVersion: v1
 kind: ConfigMap
