@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: upload-md
-        image: ghcr.io/algchoo/upload:2c5a843
+        image: ghcr.io/algchoo/upload:37e7231
         ports:
         - containerPort: 8080
         env:
