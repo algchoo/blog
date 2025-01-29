@@ -37,6 +37,11 @@ jobs:
         workflow: build-static-assets.yaml
         path: public/build
 
+    - name: move-static-assets
+      run: |
+        mv public/build/static-assets/.vite public/build && \
+        mv public/build/static-assets/assets public/build
+
     - name: docker-build-setup
       uses: docker/setup-buildx-action@v1
 
