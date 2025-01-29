@@ -45,8 +45,8 @@ jobs:
 
     - name: move-static-assets
       run: |
-        mv public/build/static-assets/.vite ../ && \
-        mv public/build/static-assets/assets ../
+        mv public/build/static-assets/.vite public/build && \
+        mv public/build/static-assets/assets public/build
 
     - name: check-static-assets
       run: |
