@@ -22,6 +22,7 @@ jobs:
           - amd64
           - arm64
 
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: checkout 
       uses: actions/checkout@v3
@@ -63,6 +64,7 @@ jobs:
           - amd64
           - arm64
 
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: checkout 
       uses: actions/checkout@v3
@@ -101,3 +103,10 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: error-message 
+        run: echo 'build-static-assets failed'
