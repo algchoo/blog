@@ -22,7 +22,6 @@ data:
         listen 80;
         server_name app.local;
 
-        # Serve static assets
         location /build/assets {
             root /var/www/public;
             access_log off;
@@ -30,7 +29,7 @@ data:
         }
 
         location /blog-posts/images/ {
-            alias /var/www/public/markdown/images/;
+            alias /var/www/public/json/images/;
         }
 
         # Proxy all other requests to PHP-FPM for Laravel
@@ -45,7 +44,6 @@ data:
             }
         }
 
-        # Deny access to hidden files
         location ~ /\. {
             deny all;
         }
