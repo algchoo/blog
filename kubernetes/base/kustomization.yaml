@@ -8,6 +8,4 @@ resources:
 - nginx.yaml
 - php-fpm-service.yaml
 - php-fpm.yaml
-- upload-md-service.yaml
-- upload-md.yaml
 
