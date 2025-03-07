@@ -27,11 +27,10 @@ WORKDIR /var/www
 
 COPY . .
 
-COPY scripts/ /scripts/
-
-RUN chmod -R 755 /scripts/ \
+RUN touch /var/www/database/database.sqlite \
     && composer install --prefer-dist --no-dev --optimize-autoloader \
     && chown -R www-data:www-data /var/www \
+    && chmod -R 755 scripts/ \
     && chmod -R 755 /var/www/storage
 
 EXPOSE 9000
