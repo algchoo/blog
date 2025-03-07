@@ -79,8 +79,7 @@ spec:
               key: APP_KEY
       volumes:
       - name: storage-volume
-        persistentVolumeClaim:
-          claimName: nfs-pvc
+        emptyDir: {}
       - name: cache-volume
         emptyDir: {}
       - name: sessions-volume

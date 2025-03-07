@@ -4,8 +4,6 @@ kind: Kustomization
 resources:
 - configmap.yaml
 - ingress.yaml
-- nfs-pv.yaml
-- nfs-pvc.yaml
 - nginx-service.yaml
 - nginx.yaml
 - php-fpm-service.yaml

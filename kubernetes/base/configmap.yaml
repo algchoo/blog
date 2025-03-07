@@ -3,10 +3,8 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  DB_CONNECTION: "pgsql"
-  DB_HOST: "postgres-service"
-  DB_PORT: "5432"
-  DB_DATABASE: "blog_posts"
+  DB_CONNECTION: "sqlite"
+  DB_DATABASE: "/var/www/database/database.sqlite"
   APP_ENV: "testing"
   APP_URL: "http://app.local"
   APP_DEBUG: "false"
