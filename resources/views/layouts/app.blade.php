@@ -21,7 +21,6 @@
     @endphp
 
     <link href="/build/{{ $manifest['resources/sass/app.scss']['file'] }}" rel="stylesheet">
-    <script src="/build/{{ $manifest['resources/js/app.js']['file'] }}" defer></script> 
 </head>
 <body>
     <header>
