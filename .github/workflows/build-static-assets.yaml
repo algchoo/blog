@@ -7,8 +7,7 @@ on:
     paths:
       - "nginx/**"
       - "upload-md/**"
-      - "resources/css/**"
-      - "resources/js/**"
+      - "resources/views/**"
       - "resources/sass/**"
       - "scripts/**"
       - ".github/workflows/**"
