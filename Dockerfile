@@ -30,9 +30,9 @@ WORKDIR /var/www
 COPY . .
 
 RUN touch /var/www/database/database.sqlite \
+    && composer install --prefer-dist --no-dev --optimize-autoloader \
     && /var/www/scripts/db-setup.sh \
     && /var/www/scripts/load-json.sh \
-    && composer install --prefer-dist --no-dev --optimize-autoloader \
     && chown -R www-data:www-data /var/www \
     && chmod -R 755 scripts/ \
     && chmod -R 755 /var/www/storage
