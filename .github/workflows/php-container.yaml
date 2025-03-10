@@ -58,6 +58,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: build & push
+      env:
+        APP_ENV: build
       run: |
         docker buildx build --push --platform linux/${{ matrix.platform }} --provenance false -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
