@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - "Dockerfile"
       - "nginx/**"
       - "upload-md/**"
       - "resources/views/**"
