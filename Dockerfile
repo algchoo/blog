@@ -3,6 +3,8 @@ FROM php:8.2-fpm
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    sqlite3 \
+    jq \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
@@ -28,6 +30,8 @@ WORKDIR /var/www
 COPY . .
 
 RUN touch /var/www/database/database.sqlite \
+    && /var/www/scripts/db-setup.sh \
+    && /var/www/scripts/load-json.sh \
     && composer install --prefer-dist --no-dev --optimize-autoloader \
     && chown -R www-data:www-data /var/www \
     && chmod -R 755 scripts/ \
