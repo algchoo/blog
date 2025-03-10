@@ -1,21 +1,17 @@
 name: Build static assets
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "Dockerfile"
-      - "nginx/**"
-      - "upload-md/**"
-      - "resources/views/**"
-      - "resources/sass/**"
-      - "scripts/**"
-      - ".github/workflows/**"
+  workflow_run:
+    workflows: [Pest Tests]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   build-static-assets:
     runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: checkout
       uses: actions/checkout@v3
@@ -32,3 +28,10 @@ jobs:
         name: static-assets
         path: public/build
         include-hidden-files: true
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: error-message 
+        run: echo 'pest tests failed'
