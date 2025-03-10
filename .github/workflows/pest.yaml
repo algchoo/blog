@@ -25,7 +25,7 @@ jobs:
 
       - name: Generate APP_KEY
         run: |
-          touch .env
+          echo "APP_KEY=test" > .env
           php artisan key:generate
  
       - name: run-tests
