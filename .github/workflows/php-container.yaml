@@ -61,7 +61,9 @@ jobs:
       env:
         APP_ENV: build
       run: |
-        docker buildx build --push --platform linux/${{ matrix.platform }} --provenance false -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
+        docker buildx build --push --platform linux/${{ matrix.platform }} --build-arg APP_ENV=$APP_ENV \
+          --provenance false \
+          -t ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} .
 
   release-scan:
     needs: [build-php-container]
