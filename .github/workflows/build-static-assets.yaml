@@ -1,11 +1,9 @@
 name: Build static assets
 
 on:
-  workflow_run:
-    workflows: [Pest Tests]
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   build-static-assets:
