@@ -24,9 +24,9 @@ jobs:
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Generate APP_KEY
-        run: |
-          echo "APP_KEY=test" > .env
-          php artisan key:generate
+        shell: bash
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
  
       - name: run-tests
         run: ./vendor/bin/pest --ci
