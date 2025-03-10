@@ -23,7 +23,7 @@ jobs:
       - name: install-dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Generate APP_KEY
+      - name: Set APP_KEY for tests
         shell: bash
         env:
           APP_KEY: ${{ secrets.APP_KEY }}
