@@ -7,5 +7,3 @@ patchesStrategicMerge:
 - configmap.yaml
 - nginx.yaml
 - ingress.yaml
-- nfs-pv.yaml
-- nfs-pvc.yaml
