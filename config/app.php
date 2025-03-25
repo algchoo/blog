@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Rate My Resume'),
+    'name' => env('APP_NAME', 'dumpster.zip'),
 
     /*
     |--------------------------------------------------------------------------
