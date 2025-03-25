@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ghcr.io/algchoo/nginx:104455d
+        image: ghcr.io/algchoo/nginx:0739f4e
         ports:
         - containerPort: 443
         - containerPort: 80

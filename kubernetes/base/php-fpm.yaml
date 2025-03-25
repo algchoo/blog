@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: blog
-        image: ghcr.io/algchoo/blog:104455d
+        image: ghcr.io/algchoo/blog:0739f4e
         ports:
         - containerPort: 80
         volumeMounts:

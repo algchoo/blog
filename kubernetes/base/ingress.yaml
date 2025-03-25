@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-ingress
+  name: blog-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
@@ -16,4 +16,4 @@ spec:
               service:
                 name: nginx-service
                 port:
-                  number: 80
+                  name: http
