@@ -4,15 +4,12 @@ metadata:
   name: blog-ingress
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/proxy-redirect-from: http://pleasehireme.duckdns.org
-    nginx.ingress.kubernetes.io/proxy-redirect-to: https://pleasehireme.duckdns.org
     nginx.ingress.kubernetes.io/use-regex: "false"
     kubernetes.io/ingress.class: nginx
 spec:
   ingressClassName: nginx
   rules:
-  - host: pleasehireme.duckdns.org
+  - host: dumpster.zip
     http:
       paths:
       - path: /
@@ -24,5 +21,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - pleasehireme.duckdns.org
+    - dumpster.zip
     secretName: your-app-tls
