@@ -6,7 +6,7 @@ This is a blog-type application where I will share the things that I find intere
 
 pre-requisites:
 - install docker
-- install [docker-mac-net-connect](https://github.com/chipmk/docker-mac-net-connect)
+- install [docker-mac-net-connect](https://github.com/chipmk/docker-mac-net-connect) (macOS only)
 - install minikube
 - update `/etc/hosts` to include (run `minikube ip` to get ip)
 ```
