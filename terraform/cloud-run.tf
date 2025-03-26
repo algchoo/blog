@@ -30,7 +30,7 @@ resource "google_cloud_run_v2_service" "default" {
         name = "APP_KEY"
         value_source {
           secret_key_ref {
-            secret = google_secret_manager_secret_version.blog_app_key.secret
+            secret = data.google_secret_manager_secret_version.blog_app_key.secret
             version = "latest"
           }
         }
