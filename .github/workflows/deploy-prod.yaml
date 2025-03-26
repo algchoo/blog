@@ -1,9 +1,5 @@
 name: Deploy application containers to Google Cloud Run service
 
-# When do I want to run this workflow?
-# How do I want to run this workflow? (terrform used by runner)
-# need to add secrets to the GitHub project for access to gcloud
-
 on:
   workflow_run:
     workflows:
