@@ -1,3 +1,10 @@
+terraform {
+  backend "gcs" {
+    bucket = "blog-tf-state"
+    prefix = "terraform/state"  
+  }
+}
+
 provider "google" {
     project = "dumpster-blog"
     region = "us-central1"
@@ -7,12 +14,6 @@ provider "google" {
 data "google_secret_manager_secret_version" "blog_app_key" {
   secret  = "blog_app_key"
   version = "latest"
-}
-
-resource "google_secret_manager_secret_iam_member" "secret_access" {
-  secret_id = data.google_secret_manager_secret_version.blog_app_key.secret
-  role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:${google_cloud_run_service.my_service.template[0].spec[0].service_account_name}"
 }
 
 resource "google_cloud_run_v2_service" "default" {
@@ -44,7 +45,7 @@ resource "google_cloud_run_v2_service" "default" {
     containers {
       name = "nginx"
       image = "ghcr.io/algchoo/nginx:0739f4e"
-      depends_on = "blog"
+      depends_on = ["blog"]
       resources {
         limits = {
           cpu    = "2"
@@ -53,4 +54,10 @@ resource "google_cloud_run_v2_service" "default" {
       }
     }
   }
+}
+
+resource "google_secret_manager_secret_iam_member" "secret_access" {
+  secret_id = data.google_secret_manager_secret_version.blog_app_key.secret
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_cloud_run_v2_service.default.template.0.service_account}"
 }
