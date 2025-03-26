@@ -1,0 +1,51 @@
+name: Deploy application containers to Google Cloud Run service
+
+# When do I want to run this workflow?
+# How do I want to run this workflow? (terrform used by runner)
+# need to add secrets to the GitHub project for access to gcloud
+
+on:
+  workflow_run:
+    workflows:
+      - 'Build and release NGINX container images'
+      - 'Build and release PHP container images'
+    branches: [main]
+    types: 
+      - completed
+
+jobs:
+  cloud-run-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: checkout 
+      uses: actions/checkout@v3
+    
+    - name: setup-terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: configure-gcp-creds
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: tf-init
+      run: terraform init -input=false
+
+    - name: tf-plan
+      run: terraform plan -out=tfplan -input=false
+
+    - name: tf-apply
+      run: terraform apply -input=false -auto-approve tfplan
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: error-message 
+        run: echo 'container images have failed to build'
