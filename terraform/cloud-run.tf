@@ -45,7 +45,6 @@ resource "google_cloud_run_v2_service" "default" {
     containers {
       name = "nginx"
       image = "ghcr.io/algchoo/nginx:0739f4e"
-      depends_on = ["blog"]
       resources {
         limits = {
           cpu    = "2"
