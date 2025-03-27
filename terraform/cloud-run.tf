@@ -51,6 +51,9 @@ resource "google_cloud_run_v2_service" "default" {
           memory = "1024Mi"
         }
       }
+      ports {
+        container_port = 80
+      }
     }
   }
 }
