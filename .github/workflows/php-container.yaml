@@ -104,6 +104,7 @@ jobs:
 
     - name: retag images
       run: |
+        docker pull ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
         docker tag ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
 
     - name: create ghcr manifest
