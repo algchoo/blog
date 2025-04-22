@@ -96,19 +96,43 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: create manifest
+    - name: gcloud-login
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJ_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+
+    - name: retag images
+      run: |
+        docker tag ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
+
+    - name: create ghcr manifest
       run: |
         docker manifest create ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} \
         ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} \
         ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }}
 
-    - name: annotations
+    - name: create gcr manifest
+      run: |
+        docker manifest create us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }} \
+        us-east1-docker.pkg.dev/blog-images/blog-amd64:${{ steps.get-tag.outputs.tag }} \
+        us-east1-docker.pkg.dev/blog-images/blog-arm64:${{ steps.get-tag.outputs.tag }}
+
+    - name: create ghcr annotations
       run: |
         docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
         docker manifest annotate ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
 
-    - name: push manifest
+    - name: create gcr annotations
+      run: |
+        docker manifest annotate us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+        docker manifest annotate us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
+
+    - name: push ghcr manifest
       run: docker manifest push ghcr.io/algchoo/blog:${{ steps.get-tag.outputs.tag }}
+
+    - name: push gcr manifest
+      run: docker manifest push us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }}
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
