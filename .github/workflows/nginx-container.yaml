@@ -113,24 +113,27 @@ jobs:
         ghcr.io/algchoo/nginx-amd64:${{ steps.get-tag.outputs.tag }} \
         ghcr.io/algchoo/nginx-arm64:${{ steps.get-tag.outputs.tag }}
 
+    - name: create ghcr annotations
+      run: |
+        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
+
+    - name: push ghcr manifest
+      run: docker manifest push ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
+
+    - name: set-gcloud-auth
+      run: gcloud auth configure-docker us-east1-docker.pkg.dev
+
     - name: create gcr manifest
       run: |
         docker manifest create us-east1-docker.pkg.dev/blog-images/nginx:${{ steps.get-tag.outputs.tag }} \
         us-east1-docker.pkg.dev/blog-images/nginx-amd64:${{ steps.get-tag.outputs.tag }} \
         us-east1-docker.pkg.dev/blog-images/nginx-arm64:${{ steps.get-tag.outputs.tag }}
 
-    - name: create ghcr annotations
-      run: |
-        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
-        docker manifest annotate ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }} ghcr.io/algchoo/nginx-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
-
     - name: create gcr annotations
       run: |
         docker manifest annotate us-east1-docker.pkg.dev/blog-images/nginx:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/nginx-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
         docker manifest annotate us-east1-docker.pkg.dev/blog-images/nginx:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/nginx-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
-
-    - name: push ghcr manifest
-      run: docker manifest push ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
 
     - name: push gcr manifest
       run: docker manifest push us-east1-docker.pkg.dev/blog-images/nginx:${{ steps.get-tag.outputs.tag }}
