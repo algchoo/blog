@@ -124,6 +124,9 @@ jobs:
     - name: set-gcloud-auth
       run: gcloud auth configure-docker us-east1-docker.pkg.dev
 
+    - name: check-gcloud-project
+      run: gcloud config list
+
     - name: create gcr manifest
       run: |
         docker manifest create us-east1-docker.pkg.dev/blog-images/nginx:${{ steps.get-tag.outputs.tag }} \
