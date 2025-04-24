@@ -129,6 +129,9 @@ jobs:
     - name: set-gcloud-auth
       run: gcloud auth configure-docker us-east1-docker.pkg.dev
 
+    - name: set-gcloud-project
+      run: gcloud config set project ${{ secrets.GCP_PROJ_ID }}
+
     - name: check-gcloud-project
       run: gcloud config list
 
