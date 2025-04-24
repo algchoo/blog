@@ -92,7 +92,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: configure-gcp-creds
-      uses: google-github-actions/auth@v1
+      uses: google-github-actions/auth@v2
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
@@ -100,10 +100,6 @@ jobs:
       uses: google-github-actions/setup-gcloud@v2
       with:
         project_id: ${{ secrets.GCP_PROJ_ID }}
-
-    - name: authenticate-docker-with-gar
-      run: |
-        gcloud auth configure-docker us-east1-docker.pkg.dev
 
     - name: retag images
       run: |
