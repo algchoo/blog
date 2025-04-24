@@ -101,6 +101,9 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJ_ID }}
 
+    - name: set-gcloud-project
+      run: gcloud config set project ${{ secrets.GCP_PROJ_ID }}
+
     - name: authenticate-docker-with-gar
       run: |
         gcloud auth configure-docker us-east1-docker.pkg.dev
