@@ -25,7 +25,7 @@ resource "google_cloud_run_v2_service" "default" {
   template {
     containers {
       name = "blog"
-      image = "ghcr.io/algchoo/blog:0739f4e"
+      image = "us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:3442b8c"
       env {
         name = "APP_KEY"
         value_source {
@@ -44,7 +44,7 @@ resource "google_cloud_run_v2_service" "default" {
     }
     containers {
       name = "nginx"
-      image = "ghcr.io/algchoo/nginx:0739f4e"
+      image = "us-east1-docker.pkg.dev/dumpster-blog/blog-images/nginx:3442b8c"
       resources {
         limits = {
           cpu    = "2"
