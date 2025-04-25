@@ -110,7 +110,7 @@ jobs:
     - name: retag images
       run: |
         docker pull ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
-        docker tag ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
+        docker tag ghcr.io/algchoo/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
 
     - name: create ghcr manifest
       run: |
@@ -134,17 +134,17 @@ jobs:
 
     - name: create gcr manifest
       run: |
-        docker manifest create us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }} \
-        us-east1-docker.pkg.dev/blog-images/blog-amd64:${{ steps.get-tag.outputs.tag }} \
-        us-east1-docker.pkg.dev/blog-images/blog-arm64:${{ steps.get-tag.outputs.tag }}
+        docker manifest create us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:${{ steps.get-tag.outputs.tag }} \
+        us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog-amd64:${{ steps.get-tag.outputs.tag }} \
+        us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog-arm64:${{ steps.get-tag.outputs.tag }}
 
     - name: create gcr annotations
       run: |
-        docker manifest annotate us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
-        docker manifest annotate us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/blog-images/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
+        docker manifest annotate us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog-amd64:${{ steps.get-tag.outputs.tag }} --os linux --arch amd64
+        docker manifest annotate us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog-arm64:${{ steps.get-tag.outputs.tag }} --os linux --arch arm64
 
     - name: push gcr manifest
-      run: docker manifest push us-east1-docker.pkg.dev/blog-images/blog:${{ steps.get-tag.outputs.tag }}
+      run: docker manifest push us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:${{ steps.get-tag.outputs.tag }}
 
     - name: scan
       uses: aquasecurity/trivy-action@0.28.0
