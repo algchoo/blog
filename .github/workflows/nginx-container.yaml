@@ -101,6 +101,9 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJ_ID }}
 
+    - name: set-gcloud-auth
+      run: gcloud auth configure-docker us-east1-docker.pkg.dev
+
     - name: retag images
       run: |
         docker pull ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
@@ -120,15 +123,6 @@ jobs:
 
     - name: push ghcr manifest
       run: docker manifest push ghcr.io/algchoo/nginx:${{ steps.get-tag.outputs.tag }}
-
-    - name: set-gcloud-auth
-      run: gcloud auth configure-docker us-east1-docker.pkg.dev
-
-    - name: set-gcloud-project
-      run: gcloud config set project ${{ secrets.GCP_PROJ_ID }}
-
-    - name: check-gcloud-project
-      run: gcloud config list
 
     - name: create gcr manifest
       run: |
