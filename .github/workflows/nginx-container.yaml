@@ -105,6 +105,7 @@ jobs:
       run: |
         docker pull ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
         docker tag ghcr.io/algchoo/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }} us-east1-docker.pkg.dev/dumpster-blog/blog-images/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
+        docker push us-east1-docker.pkg.dev/dumpster-blog/blog-images/nginx-${{ matrix.platform }}:${{ steps.get-tag.outputs.tag }}
 
     - name: create ghcr manifest
       run: |
