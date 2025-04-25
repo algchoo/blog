@@ -25,7 +25,7 @@ resource "google_cloud_run_v2_service" "default" {
   template {
     containers {
       name = "blog"
-      image = "us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:3442b8c"
+      image = "us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:b1b9066"
       env {
         name = "APP_KEY"
         value_source {
