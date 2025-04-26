@@ -23,6 +23,7 @@ resource "google_cloud_run_v2_service" "default" {
   ingress = "INGRESS_TRAFFIC_ALL"
 
   template {
+    service_account = "cloud-run-deploy@dumpster-blog.iam.gserviceaccount.com"
     containers {
       name = "blog"
       image = "us-east1-docker.pkg.dev/dumpster-blog/blog-images/blog:b1b9066"
