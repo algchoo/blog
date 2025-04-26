@@ -58,9 +58,3 @@ resource "google_cloud_run_v2_service" "default" {
     }
   }
 }
-
-resource "google_secret_manager_secret_iam_member" "secret_access" {
-  secret_id = data.google_secret_manager_secret_version.blog_app_key.secret
-  role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:cloud-run-deploy@dumpster-blog.iam.gserviceaccount.com"
-}
